@@ -1,14 +1,14 @@
 import {
   AppBar,
   Toolbar,
-  IconButton,
-  Badge,
+
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { ShoppingCart } from "@material-ui/icons";
 // import Link from "next/link";
+import CartSummary from "./cartSummary";
 import Link from '../src/Link';
+
 
 
 const useStyles = makeStyles({
@@ -37,11 +37,7 @@ const classes = useStyles();
             <div className={classes.grow}/>
 
             <div>
-                <IconButton component={Link} naked href="/products" aria-label="Show cart items" color="inherit">
-                  <Badge color="secondary">
-                    <ShoppingCart />
-                  </Badge>
-                </IconButton>
+        <CartSummary/>
             </div>
           </Toolbar>
         </AppBar>

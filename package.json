@@ -12,11 +12,16 @@
     "@chec/commerce.js": "^2.8.0",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
+    "@stripe/stripe-js": "^1.17.1",
     "next": "11.1.2",
+    "next-redux-wrapper": "^7.0.4",
     "particles-bg": "^2.5.5",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-multi-carousel": "^2.6.5"
+    "react-multi-carousel": "^2.6.5",
+    "react-redux": "^7.2.5",
+    "redux-thunk": "^2.3.0",
+    "stripe": "^8.174.0"
   },
   "devDependencies": {
     "eslint": "7.32.0",

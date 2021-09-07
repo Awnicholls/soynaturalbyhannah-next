@@ -1,3 +1,6 @@
+import { makeStyles } from "@material-ui/styles";
+import React, { useEffect, useState } from "react";
+import { useCartDispatch } from "../../context/cart";
 import { commerce } from "../../src/lib/commerce";
 import {
   Card,
@@ -9,10 +12,14 @@ import {
   MenuItem,
   FormControl,
   Select,
-  CircularProgress,
-  Container,
   Button,
 } from "@material-ui/core";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import { AddShoppingCart } from "@material-ui/icons";
+import Link from "../../src/Link";
+
 export const getStaticPaths = async () => {
   const { data } = await commerce.products.list();
   const paths = data.map((product) => {
@@ -36,7 +43,6 @@ export const getStaticProps = async (context) => {
   };
 };
 
-import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
@@ -94,8 +100,99 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Details = ({ product }) => {
-  const classes = useStyles();
+  const [scents, setScents] = useState([]);
+  const [sizes, setSizes] = useState([]);
+  const [variant1, setVariant1] = useState();
+  const [variant2, setVariant2] = useState();
+  const [variant1GroupId, setVariant1GroupId] = useState("");
+  const [variant2GroupId, setVariant2GroupId] = useState("");
+  const [hasError1, setHasError1] = useState(false);
+  const [hasError2, setHasError2] = useState(false);
+  const [open, setOpen] = React.useState(false);
+const {setCart} = useCartDispatch()
 
+
+  const classes = useStyles();
+// console.log(product.variant_groups[0].name);
+
+useEffect(() => {
+  let finalScentArray = product.variant_groups[0].options.map((option) => {
+    let scentInfo = {};
+    scentInfo.key = option.name;
+    scentInfo.text = option.name;
+    scentInfo.value = option.id;
+    return scentInfo;
+  });
+  setScents(finalScentArray);
+}, [product]);
+  
+useEffect(() => {
+  let finalSizeArray = product.variant_groups[1].options.map((option) => {
+    let sizeInfo = {};
+    sizeInfo.key = option.name;
+    sizeInfo.text = option.name;
+    sizeInfo.value = option.id;
+    sizeInfo.price = option.price.formatted_with_symbol;
+    return sizeInfo;
+  });
+  setSizes(finalSizeArray);
+}, [product]);
+
+useEffect(() => {
+  let finalVariantObject = product.variant_groups.map((variant_group) => {
+    let variantGroups = {};
+    variantGroups.id = variant_group.id;
+    variantGroups.name = variant_group.name;
+    return variantGroups;
+  });
+  setVariant1GroupId(finalVariantObject[0].id);
+  setVariant2GroupId(finalVariantObject[1].id);
+
+}, [product]);
+
+const handleVariant1 = (e) => {
+  setVariant1(e.currentTarget.getAttribute("data-value"));
+};
+
+
+const handleVariant2 = (e) => {
+  setVariant2(e.currentTarget.getAttribute("data-value"));
+};
+
+const handleAddToCart = () => {
+  setHasError1(false);
+  setHasError2(false);
+
+  if (variant1 === "") {
+    setHasError1(true);
+  }
+  if (variant2 === "") {
+    setHasError2(true);
+  }
+
+  const variantObject = {
+    [variant1GroupId]: variant1,
+    [variant2GroupId]: variant2,
+  };
+  if (variant1 && variant2) {
+    setOpen(true);
+    commerce.cart
+    .add(product.id, 1, variantObject)
+    .then(({cart}) => {
+      setCart(cart);
+      console.log(cart)
+      return cart
+    })
+  }
+
+};
+
+const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
   return (
     <>
         <div className={classes.toolbar} />
@@ -117,19 +214,20 @@ const Details = ({ product }) => {
               dangerouslySetInnerHTML={{ __html: product.description }}
               variant="body2"
               color="textSecondary"
-              component="p"
+              component="div"
               className={classes.cardDescription}
             />
  <div>
-              <FormControl required className={classes.formControl}>
-                <InputLabel htmlFor="scent">{variantGroup[0].name}</InputLabel>
+               <FormControl required className={classes.formControl}>
+                <InputLabel htmlFor="scent">{product.variant_groups[0].name}</InputLabel>
                 <Select
                   className={classes.select}
                   displayEmpty
-                  onChange={handleScent}
-                  value={variant1Info}
                   name="scent"
+                  value={variant1 || ""}
+                  onChange={handleVariant1}
                   error={hasError1}
+
                 >
                   {scents.map((scent) => {
                     return (
@@ -144,15 +242,17 @@ const Details = ({ product }) => {
                   })}
                 </Select>
               </FormControl>
+              
               <FormControl required className={classes.formControl}>
-                <InputLabel htmlFor="size">{variantGroup[1].name}</InputLabel>
+                <InputLabel htmlFor="size">{product.variant_groups[1].name}</InputLabel>
                 <Select
                   displayEmpty
                   className={classes.select}
-                  onChange={handleSize}
-                  value={variant2Info}
+                  value={variant2 || ""}
+                  onChange={handleVariant2}
                   name="size"
                   error={hasError2}
+
                 >
                   {sizes.map((size) => {
                     return (
@@ -166,7 +266,7 @@ const Details = ({ product }) => {
                     );
                   })}
                 </Select>
-              </FormControl>
+              </FormControl> 
             </div>
             <CardActions disableSpacing className={classes.cardActions}>
               <Button
@@ -174,13 +274,13 @@ const Details = ({ product }) => {
                 className={classes.button}
                 color="secondary"
                 component={Link}
-                to={"/products"}
+                href={"/products"}
               >
                 Back to Products
-              </Button>
+              </Button> 
               <div className={classes.grow} />
 
-              <Button
+               <Button
                 color="primary"
                 variant="contained"
                 startIcon={<AddShoppingCart />}
@@ -193,7 +293,7 @@ const Details = ({ product }) => {
             </CardActions>
           </CardContent>
         </Card>
-        <Snackbar
+         <Snackbar
           anchorOrigin={{
             vertical: "bottom",
             horizontal: "center",
@@ -203,7 +303,7 @@ const Details = ({ product }) => {
           onClose={handleClose}
           message="Added to Cart"
           action={
-            <React.Fragment>
+            <>
               <IconButton
                 size="small"
                 aria-label="close"
@@ -212,9 +312,9 @@ const Details = ({ product }) => {
               >
                 <CloseIcon fontSize="small" />
               </IconButton>
-            </React.Fragment>
+            </>
           }
-        />
+        /> 
       </main>
     </>
   );
