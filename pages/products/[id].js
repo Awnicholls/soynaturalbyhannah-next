@@ -13,6 +13,7 @@ import {
   FormControl,
   Select,
   Button,
+  FormHelperText
 } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -102,8 +103,8 @@ const useStyles = makeStyles((theme) => ({
 const Details = ({ product }) => {
   const [scents, setScents] = useState([]);
   const [sizes, setSizes] = useState([]);
-  const [variant1, setVariant1] = useState();
-  const [variant2, setVariant2] = useState();
+  const [variant1, setVariant1] = useState("");
+  const [variant2, setVariant2] = useState("");
   const [variant1GroupId, setVariant1GroupId] = useState("");
   const [variant2GroupId, setVariant2GroupId] = useState("");
   const [hasError1, setHasError1] = useState(false);
@@ -152,17 +153,19 @@ useEffect(() => {
 
 const handleVariant1 = (e) => {
   setVariant1(e.currentTarget.getAttribute("data-value"));
+  setHasError1(false);
+
 };
 
 
 const handleVariant2 = (e) => {
   setVariant2(e.currentTarget.getAttribute("data-value"));
+  setHasError2(false);
+
 };
 
 const handleAddToCart = () => {
-  setHasError1(false);
-  setHasError2(false);
-
+ 
   if (variant1 === "") {
     setHasError1(true);
   }
@@ -241,6 +244,7 @@ const handleClose = (event, reason) => {
                     );
                   })}
                 </Select>
+                {hasError1 && <FormHelperText>This Is Required!</FormHelperText>}
               </FormControl>
               
               <FormControl required className={classes.formControl}>
@@ -266,6 +270,8 @@ const handleClose = (event, reason) => {
                     );
                   })}
                 </Select>
+                {hasError2 && <FormHelperText>This Is Required!</FormHelperText>}
+
               </FormControl> 
             </div>
             <CardActions disableSpacing className={classes.cardActions}>
