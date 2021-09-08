@@ -10,7 +10,7 @@ const CartSummary = () => {
     <IconButton
       component={Link}
       naked
-      href="/products"
+      href="/cart"
       aria-label="Show cart items"
       color="inherit"
     >
