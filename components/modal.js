@@ -8,11 +8,10 @@ import { useCartState } from "../context/cart";
 
 import Breadcrumbs from "./Breadcrumbs";
 import Cart from "./Cart";
-import Checkout from "./Checkout";
+import Checkout from "./Checkout/Checkout";
 
 function CurrentStep({ step }) {
   const { id } = useCartState();
-
   switch (step) {
     case "cart":
       return <Cart />;
@@ -43,7 +42,6 @@ function Modal() {
   };
 
   return (
-      
     <AnimatePresence>
       {open && (
         <motion.div

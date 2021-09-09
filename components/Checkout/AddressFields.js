@@ -1,5 +1,3 @@
-import React from "react";
-
 import { FormInput, FormSelect } from "../Form";
 
 function AddressFields({ prefix = "", countries = {}, subdivisions = {} }) {
@@ -17,7 +15,7 @@ function AddressFields({ prefix = "", countries = {}, subdivisions = {} }) {
     : [];
 
   return (
-    <React.Fragment>
+    <>
       <div className="md:flex md:items-start md:space-x-4">
         <div className="md:w-1/2">
           <FormInput
@@ -80,7 +78,7 @@ function AddressFields({ prefix = "", countries = {}, subdivisions = {} }) {
           />
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 }
 

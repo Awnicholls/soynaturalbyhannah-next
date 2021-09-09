@@ -5,7 +5,6 @@ import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { useCartDispatch } from "../../context/cart";
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
-import ExtraFieldsForm from "./ExtraFieldsForm";
 import ShippingForm from "./ShippingForm";
 import BillingForm from "./BillingForm";
 import Success from "./Success";
@@ -14,7 +13,7 @@ import OrderSummary from "./OrderSummary";
 
 import LoadingSVG from "../../svg/loading.svg";
 
-function Checkout({ cartId }){
+const Checkout = ({cartId}) => {
   const [order, setOrder] = useState();
   const { reset: resetCart } = useCartDispatch();
   const { currentStep, id, live } = useCheckoutState();
@@ -150,19 +149,16 @@ function Checkout({ cartId }){
 
   if (!id)
     return (
-      <div className="h-full flex flex-col items-center justify-center space-y-6">
-        <LoadingSVG className="w-10 md:w-16 fill-current" />
-        <p className="text-black">Preparing checkout</p>
+      <div>
+      Loading
       </div>
     );
-
   return (
     <FormProvider {...methods}>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="h-full flex flex-col justify-between pt-6 md:pt-12"
       >
-        {currentStep === "extrafields" && <ExtraFieldsForm />}
         {currentStep === "shipping" && <ShippingForm />}
         {currentStep === "billing" && <BillingForm />}
         {currentStep === "success" && <Success {...order} />}

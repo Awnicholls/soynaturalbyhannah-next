@@ -1,91 +1,48 @@
-import { Container, Typography, Button, Grid } from "@material-ui/core";
-import Link from "../src/Link";
-import CartItem from "./CartItem.js";
-import { useCartState, useCartDispatch } from "../context/cart";
-import Image from "next/image";
-import AddProductSVG from "../svg/undraw_add_to_cart_vkjp.svg"
-import { makeStyles } from "@material-ui/styles";
-const useStyles = makeStyles((theme) => ({
-  link:{
-    textDecoration: 'none' 
-  },
-  toolbar: theme.mixins.toolbar,
+import { useCartState } from "../context/cart";
+import { useModalDispatch } from "../context/modal";
 
-  cartDetails: {
-    display: "flex",
-    flexDirection: "column",
-    // marginTop: '10%',
-    width: "100%",
-    justifyContent: "space-between",
-    padding: theme.spacing(1),
-    alignItems: "self-end"
-  },
 
-}));
 
-const Cart = () => {
-  const classes = useStyles();
-  const { line_items, subtotal } = useCartState();
+import Button from "./Button";
+import CartItem from "./CartItem";
+
+export default function Cart() {
+  const { line_items, subtotal, total_unique_items } = useCartState();
+  const { showCheckout } = useModalDispatch();
+
   const isEmpty = line_items.length === 0;
-const {gotoCheckout}=useCartDispatch()
-  const renderEmptyCart = () => (
-    <>
-    <Typography variant="subtitle1" gutterBottom>
-      You have no items in your shopping cart,
-      <Link className={classes.link} naked href="/products">{" "}
-        start adding some
-      </Link>
-      !
-    </Typography>
-    <Image  src={AddProductSVG} height={500} alt="Adding Products" />
-    </>
-  );
 
-  if (!line_items) return "Loading";
 
-  const renderCart = () => (
-    <>
-            <div className={classes.toolbar} />
 
-      <Grid container spacing={3}>
-        {line_items.map((item) => (
-          <Grid item xs={12} sm={2} key={item.id}>
-            <CartItem {...item} />
-          </Grid>
-        ))}
-      </Grid>
-      <div className={classes.cartDetails}>
-        <Typography variant="h4">
-          Subtotal: {subtotal.formatted_with_symbol}
-        </Typography>
-        <div>
-          <Button
-            className={classes.checkoutButton}
-            component={Link}
-            href="/checkout"
-            naked
-            size="large"
-            type="button"
-            variant="contained"
-            color="primary"
-            onClick={gotoCheckout}
-          >
-            Checkout
-          </Button>
-        </div>
-      </div>
-    </>
-  );
 
   return (
-    <Container>
-      <div className={classes.toolbar} />
-      <Typography className={classes.title} variant="h3" gutterBottom>
-        Your Shopping Cart
-      </Typography>
-      {isEmpty ? renderEmptyCart() : renderCart()}
-    </Container>
-  );
-};
+    <div className="h-full flex flex-col justify-between">
+      <div>
+        {line_items.map((item) => (
+          <CartItem key={item.id} {...item} />
+        ))}
+      </div>
 
-export default Cart;
+      <div className="flex items-center justify-between py-3 md:py-4 lg:py-5">
+        {isEmpty ? (
+          <p>Your cart is empty.</p>
+        ) : (
+          <>
+            <div className="text-lg md:text-xl">
+              Total: {subtotal?.formatted_with_symbol}, {total_unique_items}{" "}
+              {total_unique_items === 1 ? "item" : "items"}
+            </div>
+            <div>
+              <Button
+                className="appearance-none leading-none p-1 md:p-1.5 lg:px-3.5 text-lg md:text-xl"
+                onClick={showCheckout}
+              >
+                Check Out
+              </Button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}

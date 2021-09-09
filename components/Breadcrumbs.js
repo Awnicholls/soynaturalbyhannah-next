@@ -15,27 +15,9 @@ function Breadcrumbs({ inCart }) {
 
   return (
     <div className="space-x-3">
-      {currentStep === "extrafields" && (
-        <>
-          <span className="text-lg md:text-xl">Shopping Bag</span>
-          <span className="text-lg md:text-xl">&rarr;</span>
-          <span className="text-lg md:text-xl">Booking</span>
-          <span className="text-lg md:text-xl opacity-50">&rarr;</span>
-          <span className="text-lg md:text-xl opacity-50">Shipping</span>
-          <span className="text-lg md:text-xl opacity-50">&rarr;</span>
-          <span className="text-lg md:text-xl opacity-50">Payment</span>
-        </>
-      )}
       {currentStep === "shipping" && (
         <>
           <span className="text-lg md:text-xl">Shopping Bag</span>
-
-          {extrafields.length > 0 && (
-            <>
-              <span className="text-lg md:text-xl">&rarr;</span>
-              <span className="text-lg md:text-xl">Booking</span>
-            </>
-          )}
           <span className="text-lg md:text-xl">&rarr;</span>
           <span className="text-lg md:text-xl">Shipping</span>
           <span className="text-lg md:text-xl opacity-50">&rarr;</span>

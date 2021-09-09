@@ -1,24 +1,12 @@
+import React from "react";
+import Image from "next/image";
+
 import { commerce } from "../src/lib/commerce";
 import { useCartDispatch } from "../context/cart";
-import { Typography, Button } from "@material-ui/core";
-import Image from "next/image";
-import React from "react";
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 
-
-const CartItem = ({
-  id,
-  media,
-  name,
-  quantity,
-  line_total,
-  selected_options,
-}) => {
+function CartItem({ id, media, name, quantity, line_total, selected_options }) {
   const { setCart } = useCartDispatch();
   const hasVariants = selected_options.length >= 1;
-  const [open, setOpen] = React.useState(false);
 
   const handleUpdateCart = ({ cart }) => {
     setCart(cart);
@@ -27,133 +15,89 @@ const CartItem = ({
   };
 
   const handleRemoveItem = () =>
-    commerce.cart.remove(id).then(handleUpdateCart);
-
-    const handleClose = (event, reason) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-  
-      setOpen(false);
-    };
-  
-  const handleMaxItems = () => {
-    setOpen(true);
-  }
+    commerce.cart
+      .remove(id)
+      .then(handleUpdateCart)
+;
 
   const decrementQuantity = () => {
     quantity > 1
       ? commerce.cart
           .update(id, { quantity: quantity - 1 })
           .then(handleUpdateCart)
+
       : handleRemoveItem();
   };
 
-  const incrementQuantity = () => {
-    quantity < 10
-      ? commerce.cart
-          .update(id, { quantity: quantity + 1 })
-          .then(handleUpdateCart)
-      : handleMaxItems();
-  };
+  const incrementQuantity = () =>
+    commerce.cart
+      .update(id, { quantity: quantity + 1 })
+      .then(handleUpdateCart)
+;
 
   return (
-    <div>
-      <div>
+    <div className="py-3 md:py-4 lg:py-5 flex md:items-end space-x-3 md:space-x-4 lg:space-x-5 border-b border-black">
+      <div className="w-24 h-24 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded relative">
         <Image
           src={media.source}
           alt={name}
-          //   layout="fill"
+          // layout="fill"
+width={250}
+height={250}
+          className="object-cover rounded-lg hover:rounded-none transition-all"
           loading="eager"
           priority={true}
-          width={350}
-          height={250}
         />
       </div>
-      <div>
-        <div>
-          <Typography variant="p">{name}</Typography>
-        </div>
-        <div>
+      <div className="flex flex-col md:flex-row md:items-end flex-grow">
+        <div className="md:flex-grow">
+          <p className="font-serif text-xl md:text-2xl lg:text-3xl italic leading-none">
+            {name}
+          </p>
           {hasVariants && (
-            <Typography variant="p">
-              {selected_options.map(({ group_name, option_name }, index) => (
+            <p>
+              {selected_options.map(({ option_name }, index) => (
                 <React.Fragment key={index}>
-                  <div>
-                    {`${group_name}:`}
-                    {` ${option_name}`}
-                  </div>
+                  {index ? `, ${option_name}` : option_name}
                 </React.Fragment>
               ))}
-            </Typography>
+            </p>
           )}
         </div>
-
-        <div>
-          <div>{line_total.formatted_with_symbol}</div>
-          <div>
-            <div>
-              <span>Quantity:</span>
-              <div>
-                <Button
-                  onClick={decrementQuantity}
-                  type="button"
-                  size="small"
-                  variant="outlined"
-                  color="primary"
-                >
-                  -
-                </Button>
-                <span> {quantity} </span>
-                <Button
-                  onClick={incrementQuantity}
-                  type="button"
-                  size="small"
-                  variant="outlined"
-                  color="secondary"
-                >
-                  +
-                </Button>
-              </div>
+        <div className="flex flex-col items-start md:items-end justify-between flex-grow">
+          <div className="text-lg md:text-xl lg:text-2xl">
+            {line_total.formatted_with_symbol}
+          </div>
+          <div className="w-full flex md:flex-col items-center md:items-end justify-between">
+            <div className="md:pb-4 lg:pb-5 inline-flex items-center">
+              <span className="pr-2">Quantity:</span>
+              <button
+                onClick={decrementQuantity}
+                className="appearance-none inline-flex items-center justify-center rounded-lg border border-black w-5 h-5 text-xs text-black focus:outline-none hover:bg-black hover:text-white transition"
+              >
+                -
+              </button>
+              <span className="px-2 md:text-lg">{quantity}</span>
+              <button
+                onClick={incrementQuantity}
+                className="appearance-none inline-flex items-center justify-center rounded-lg border border-black w-5 h-5 text-xs text-black focus:outline-none hover:bg-black hover:text-white transition"
+              >
+                +
+              </button>
             </div>
             <div>
-              <Button
+              <button
                 onClick={handleRemoveItem}
-                type="button"
-                size="small"
-                variant="contained"
-                color="secondary"
+                className="appearance-none inline-flex items-center justify-center rounded-lg border border-black text-xs text-black px-1 h-5 opacity-50 hover:opacity-100 focus:opacity-100 focus:outline-none transition"
               >
                 Remove
-              </Button>
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <Snackbar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-          open={open}
-          autoHideDuration={3000}
-          onClose={handleClose}
-          message="Max items for this product reached"
-          action={
-            <>
-              <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={handleClose}
-              >
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </>
-          }
-        /> 
     </div>
   );
-};
+}
 
 export default CartItem;
