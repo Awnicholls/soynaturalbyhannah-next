@@ -1,4 +1,5 @@
 import { createContext, useReducer, useEffect, useContext } from "react";
+import { useCycle } from "framer-motion";
 
 import { commerce } from "../src/lib/commerce";
 
@@ -26,6 +27,7 @@ const reducer = (state, action) => {
 };
 
 export const CartProvider = ({ children }) => {
+  const [open, toggle] = useCycle(false, true);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -38,18 +40,29 @@ export const CartProvider = ({ children }) => {
 
       dispatch({ type: SET_CART, payload: cart });
     } catch (err) {
+      // noop
     }
   };
 
   const setCart = async (payload) => dispatch({ type: SET_CART, payload });
 
+  const showCart = () => {
+    toggle();
+    document.body.classList.add("overflow-hidden");
+  };
+
+  const closeCart = () => {
+    toggle();
+    document.body.classList.remove("overflow-hidden");
+  };
+
   const reset = async () => dispatch({ type: RESET });
 
   return (
     <CartDispatchContext.Provider
-      value={{ setCart, reset }}
+      value={{ setCart, showCart, closeCart, reset }}
     >
-      <CartStateContext.Provider value={{ ...state }}>
+      <CartStateContext.Provider value={{ open, ...state }}>
         {children}
       </CartStateContext.Provider>
     </CartDispatchContext.Provider>

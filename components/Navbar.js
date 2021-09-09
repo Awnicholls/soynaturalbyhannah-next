@@ -1,13 +1,12 @@
 import {
   AppBar,
   Toolbar,
-
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-// import Link from "next/link";
 import CartSummary from "./cartSummary";
 import Link from '../src/Link';
+
 
 
 
@@ -34,6 +33,7 @@ const classes = useStyles();
             <Typography className={classes.title} variant="h6" color="inherit" component={Link} naked href="/">
               Soy Natural by Hannah
             </Typography>
+
             <div className={classes.grow}/>
 
             <div>

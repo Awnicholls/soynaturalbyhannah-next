@@ -1,16 +1,15 @@
 import { useCartState } from "../context/cart";
 import { ShoppingCart } from "@material-ui/icons";
-import Link from "../src/Link";
 import { IconButton, Badge } from "@material-ui/core";
+import { useModalDispatch } from "../context/modal";
 
 const CartSummary = () => {
   const { total_unique_items } = useCartState();
+  const { openModal } = useModalDispatch();
 
   return (
     <IconButton
-      component={Link}
-      naked
-      href="/cart"
+      onClick={openModal}
       aria-label="Show cart items"
       color="inherit"
     >
