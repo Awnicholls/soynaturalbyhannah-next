@@ -28,7 +28,7 @@ const classes = useStyles();
   return (
     <>
       <div>
-        <AppBar position="fixed" color="inherit">
+        <AppBar position="static" color="inherit">
           <Toolbar>
             <Typography className={classes.title} variant="h6" color="inherit" component={Link} naked href="/">
               Soy Natural by Hannah

@@ -71,9 +71,9 @@ function AddressFields({ prefix = "", countries = {}, subdivisions = {} }) {
         </div>
         <div className="md:w-1/3">
           <FormInput
-            label="ZIP / Postcode"
+            label="Postcode"
             name={`${prefix}.postal_zip_code`}
-            placeholder="ZIP"
+            placeholder="Post Code"
             required
           />
         </div>

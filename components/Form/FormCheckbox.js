@@ -24,13 +24,11 @@ function FormCheckbox({
         className="flex items-center cursor-pointer w-full"
       >
         <input
-          ref={register({ required: isRequired, ...validation })}
           id={props.id || name}
-          name={name}
+          {...register(name, { required: isRequired, ...validation })}
           type="checkbox"
           className="appearance-none bg-transparent checked:bg-black border border-faded-black checked:border-black hover:border-black focus:border-black focus:checked:outline-none focus:outline-none text-black rounded w-5 h-5 cursor-pointer"
-          {...props}
-        />
+          {...props} />
 
         {(children || label) && (
           <span className="ml-2">{children || label}</span>

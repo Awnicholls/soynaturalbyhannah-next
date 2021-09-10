@@ -3,7 +3,7 @@ import { useCheckoutState } from "../context/checkout";
 // TODO: Build array of crumbs dynamically from available steps
 
 function Breadcrumbs({ inCart }) {
-  const { currentStep, extrafields } = useCheckoutState();
+  const { currentStep } = useCheckoutState();
 
   if (inCart) {
     return <span className="text-lg md:text-xl">Shopping Bag</span>;
@@ -27,12 +27,6 @@ function Breadcrumbs({ inCart }) {
       {currentStep === "billing" && (
         <>
           <span className="text-lg md:text-xl">Shopping Bag</span>
-          {extrafields.length > 0 && (
-            <>
-              <span className="text-lg md:text-xl">&rarr;</span>
-              <span className="text-lg md:text-xl">Booking</span>
-            </>
-          )}
           <span className="text-lg md:text-xl">&rarr;</span>
           <span className="text-lg md:text-xl">Shipping</span>
           <span className="text-lg md:text-xl">&rarr;</span>

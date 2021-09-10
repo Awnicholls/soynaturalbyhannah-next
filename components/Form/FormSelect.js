@@ -1,6 +1,5 @@
 import { useFormContext } from "react-hook-form";
 
-import Chevron from "../../svg/chevron.svg";
 
 
 function FormSelect({
@@ -20,13 +19,11 @@ function FormSelect({
     <div className="py-2">
       <div className="relative overflow-hidden border border-faded-black focus:border-black focus:outline-none rounded-md w-full">
         <select
-          ref={register({ required: isRequired, ...validation })}
           id={name}
-          name={name}
+          {...register(name, { required: isRequired, ...validation })}
           className="appearance-none bg-transparent w-full py-1 pr-6 pl-1.5 text-base placeholder-faded-black focus:outline-none"
           defaultValue=""
-          {...props}
-        >
+          {...props}>
           <option disabled value="">
             {placeholder || `Select a ${label}`}
           </option>
@@ -39,11 +36,9 @@ function FormSelect({
         </select>
 
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-black">
-          <Chevron />
         </div>
       </div>
 
-      <FormError name={name} />
     </div>
   );
 }

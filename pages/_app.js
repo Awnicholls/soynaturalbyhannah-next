@@ -12,6 +12,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { ModalProvider } from "../context/modal";
 import Modal from "../components/Modal";
 import { AnimatePresence } from "framer-motion";
+import "tailwindcss/tailwind.css";
 
 
 const stripePromise = loadStripe(

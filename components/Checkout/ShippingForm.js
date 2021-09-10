@@ -7,7 +7,7 @@ import { commerce } from "../../src/lib/commerce";
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
 import AddressFields from "./AddressFields";
-import { FormCheckbox as FormRadio, FormError } from "../Form";
+import { FormCheckbox as FormRadio } from "../Form";
 
 function ShippingForm() {
   const { id } = useCheckoutState();
@@ -143,8 +143,6 @@ function ShippingForm() {
                     </div>
                   ))}
                 </div>
-
-                <FormError name="fulfillment.shipping_method" />
               </>
             ) : (
               <p className="text-sm text-black">

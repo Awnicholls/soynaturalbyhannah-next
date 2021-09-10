@@ -41,9 +41,7 @@ function CartItem({ id, media, name, quantity, line_total, selected_options }) {
         <Image
           src={media.source}
           alt={name}
-          // layout="fill"
-width={250}
-height={250}
+          layout="fill"
           className="object-cover rounded-lg hover:rounded-none transition-all"
           loading="eager"
           priority={true}

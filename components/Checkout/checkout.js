@@ -10,10 +10,10 @@ import BillingForm from "./BillingForm";
 import Success from "./Success";
 import CheckoutSummary from "./CheckoutSummary";
 import OrderSummary from "./OrderSummary";
-
+import Image from "next/image";
 import LoadingSVG from "../../svg/loading.svg";
 
-const Checkout = ({cartId}) => {
+const Checkout = ({ cartId }) => {
   const [order, setOrder] = useState();
   const { reset: resetCart } = useCartDispatch();
   const { currentStep, id, live } = useCheckoutState();
@@ -147,12 +147,7 @@ const Checkout = ({cartId}) => {
     return setCurrentStep(nextStepFrom(currentStep));
   };
 
-  if (!id)
-    return (
-      <div>
-      Loading
-      </div>
-    );
+  if (!id) return <Image src={LoadingSVG} layout="fill" alt="Loading" />;
   return (
     <FormProvider {...methods}>
       <form
@@ -167,6 +162,6 @@ const Checkout = ({cartId}) => {
       </form>
     </FormProvider>
   );
-}
+};
 
 export default Checkout;
