@@ -4,7 +4,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import CartSummary from "./cartSummary";
+import CartSummary from "./CartSummary";
 import Link from '../src/Link';
 
 
