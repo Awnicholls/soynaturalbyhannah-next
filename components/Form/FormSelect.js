@@ -1,4 +1,5 @@
 import { useFormContext } from "react-hook-form";
+import FormError from "./FormError";
 
 
 
@@ -38,6 +39,7 @@ function FormSelect({
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-black">
         </div>
       </div>
+      <FormError name={name} />
 
     </div>
   );

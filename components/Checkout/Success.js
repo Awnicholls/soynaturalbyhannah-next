@@ -8,9 +8,7 @@ function Success({ has }) {
           Thanks!
         </h1>
         <p className="mt-3 text-lg md:text-xl font-sans">
-          {has.digital_fulfillment
-            ? "You’ll receive an email with your receipt, and a backup link to re-download your purchase"
-            : "You’ll receive an email with your receipt, and tracking information."}
+          You’ll receive an email with your receipt, and tracking information.
         </p>
       </div>
       <div className="lg:w-1/2 lg:flex lg:items-center lg:justify-center">

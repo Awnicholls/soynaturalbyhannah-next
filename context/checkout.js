@@ -13,7 +13,7 @@ const SET_ERROR = "SET_ERROR";
 const RESET = "RESET";
 
 const initialState = {
-  currentStep: "extrafields",
+  currentStep: "shipping",
   processing: false,
   error: null,
 };
@@ -79,8 +79,8 @@ export const CheckoutProvider = ({ children }) => {
 
   const nextStepFrom = (currentStep) => {
     switch (currentStep) {
-      case "extrafields":
-        return state.collects.shipping_address ? "shipping" : "billing";
+      // case "extrafields":
+      //   return state.collects.shipping_address ? "shipping" : "billing";
       case "shipping":
       default:
         return "billing";

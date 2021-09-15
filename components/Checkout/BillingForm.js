@@ -11,7 +11,7 @@ import { commerce } from "../../src/lib/commerce";
 
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
-import { FormCheckbox, FormInput } from "../Form";
+import { FormCheckbox, FormInput, FormError } from "../Form";
 import AddressFields from "./AddressFields";
 
 const style = {
@@ -96,6 +96,7 @@ function BillingForm() {
             countries={countries}
             subdivisions={subdivisions}
           />
+
         </fieldset>
       </div>
 
@@ -146,6 +147,8 @@ function BillingForm() {
               </div>
             </div>
           </div>
+          <FormError name="stripe" />
+
         </fieldset>
       </div>
     </div>

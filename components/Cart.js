@@ -1,19 +1,13 @@
 import { useCartState } from "../context/cart";
 import { useModalDispatch } from "../context/modal";
 
-
-
 import Button from "./Button";
 import CartItem from "./CartItem";
 
 export default function Cart() {
   const { line_items, subtotal, total_unique_items } = useCartState();
   const { showCheckout } = useModalDispatch();
-
   const isEmpty = line_items.length === 0;
-
-
-
 
   return (
     <div className="h-full flex flex-col justify-between">

@@ -1,4 +1,5 @@
 import { useFormContext } from "react-hook-form";
+import FormError from "./FormError";
 
 
 function FormInput({
@@ -21,6 +22,8 @@ function FormInput({
         type={type}
         className="appearance-none bg-transparent placeholder-faded-black border border-faded-black focus:border-black focus:outline-none rounded-md w-full text-base px-1.5 py-1"
         {...props} />
+              <FormError name={name} />
+
     </div>
   );
 }

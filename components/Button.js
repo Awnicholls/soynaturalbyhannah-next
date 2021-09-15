@@ -15,7 +15,7 @@ const buttonStyle = (theme) => {
     case "ceramic-dutch-oven-chopchop-shop":
       return "bg-goldenrod text-black";
     default:
-      return "bg-white-rock";
+      return "bg-purple text-white hover:bg-dark-purple";
   }
 };
 

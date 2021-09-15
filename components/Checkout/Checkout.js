@@ -147,7 +147,14 @@ const Checkout = ({ cartId }) => {
     return setCurrentStep(nextStepFrom(currentStep));
   };
 
-  if (!id) return <Image src={LoadingSVG} layout="fill" alt="Loading" />;
+  if (!id)
+    return (
+      <div className="h-full flex flex-col items-center justify-center space-y-6">
+        <Image width={40} src={LoadingSVG} alt="Loading" />
+        <p className="text-black">Preparing checkout</p>
+      </div>
+    );
+
   return (
     <FormProvider {...methods}>
       <form

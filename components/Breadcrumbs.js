@@ -1,9 +1,9 @@
 import { useCheckoutState } from "../context/checkout";
-
-// TODO: Build array of crumbs dynamically from available steps
+import { useModalDispatch } from "../context/modal";
 
 function Breadcrumbs({ inCart }) {
   const { currentStep } = useCheckoutState();
+  const { showCart } = useModalDispatch();
 
   if (inCart) {
     return <span className="text-lg md:text-xl">Shopping Bag</span>;
@@ -17,7 +17,9 @@ function Breadcrumbs({ inCart }) {
     <div className="space-x-3">
       {currentStep === "shipping" && (
         <>
-          <span className="text-lg md:text-xl">Shopping Bag</span>
+          <span onClick={showCart} className="text-lg md:text-xl cursor-pointer">
+            Shopping Bag
+          </span>
           <span className="text-lg md:text-xl">&rarr;</span>
           <span className="text-lg md:text-xl">Shipping</span>
           <span className="text-lg md:text-xl opacity-50">&rarr;</span>
@@ -26,7 +28,9 @@ function Breadcrumbs({ inCart }) {
       )}
       {currentStep === "billing" && (
         <>
-          <span className="text-lg md:text-xl">Shopping Bag</span>
+          <span onClick={showCart} className="text-lg md:text-xl cursor-pointer">
+            Shopping Bag
+          </span>
           <span className="text-lg md:text-xl">&rarr;</span>
           <span className="text-lg md:text-xl">Shipping</span>
           <span className="text-lg md:text-xl">&rarr;</span>
