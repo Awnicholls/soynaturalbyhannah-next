@@ -57,7 +57,7 @@ const Product = ({ product }) => {
       <CardActions>
         <Button
           component={Link}
-          href={`/details/${product.id}`}
+          href={`/products/${product.id}`}
           aria-label="Show product details"
           size="small"
           color="primary"
