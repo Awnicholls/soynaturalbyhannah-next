@@ -5,7 +5,7 @@ import {
   CardActions,
   CardMedia,
 } from "@material-ui/core";
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Link from "../../src/Link";
 import { makeStyles } from "@material-ui/styles";
@@ -37,7 +37,6 @@ const Product = ({ product }) => {
 
     function compareDecimals(a, b) {
       if (a === b) return 0;
-
       return a < b ? -1 : 1;
     }
     setPrice(lowestPrice);

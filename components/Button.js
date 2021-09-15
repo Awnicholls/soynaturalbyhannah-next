@@ -4,16 +4,8 @@ import { useThemeState } from "../context/theme";
 
 const buttonStyle = (theme) => {
   switch (theme) {
-    case "kitchen-sink-journal-chopchop-shop":
-      return "bg-clementine text-black";
-    case "walnut-cooks-tools-chopchop-shop":
-      return "bg-tumbleweed text-black";
-    case "essential-knife-set-chopchop-shop":
-      return "bg-hawkes-blue text-black";
-    case "private-cooking-class-chopchop-shop":
-      return "bg-asparagus text-black";
-    case "ceramic-dutch-oven-chopchop-shop":
-      return "bg-goldenrod text-black";
+    // case "kitchen-sink-journal-chopchop-shop":
+    //   return "bg-clementine text-black";
     default:
       return "bg-purple text-white hover:bg-dark-purple";
   }

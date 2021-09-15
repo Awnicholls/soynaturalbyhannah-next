@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
-
+import {useRouter} from "next/router";
 import { useCartDispatch } from "../../context/cart";
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
 import ShippingForm from "./ShippingForm";
 import BillingForm from "./BillingForm";
-import Success from "./Success";
 import CheckoutSummary from "./CheckoutSummary";
 import OrderSummary from "./OrderSummary";
 import Image from "next/image";
 import LoadingSVG from "../../svg/loading.svg";
 
 const Checkout = ({ cartId }) => {
+  const router = useRouter();
   const [order, setOrder] = useState();
   const { reset: resetCart } = useCartDispatch();
   const { currentStep, id, live } = useCheckoutState();
@@ -138,6 +138,7 @@ const Checkout = ({ cartId }) => {
   const handleOrderSuccess = (order) => {
     setOrder(order);
     setCurrentStep("success");
+    router.push("/thankyou");
     resetCart();
   };
 
@@ -163,8 +164,6 @@ const Checkout = ({ cartId }) => {
       >
         {currentStep === "shipping" && <ShippingForm />}
         {currentStep === "billing" && <BillingForm />}
-        {currentStep === "success" && <Success {...order} />}
-
         {order ? <OrderSummary {...order} /> : <CheckoutSummary {...live} />}
       </form>
     </FormProvider>
