@@ -362,3 +362,5 @@ node_modules/
 # Logs
 npm-debug.log*
 node_modules
+
+.DS-Store
