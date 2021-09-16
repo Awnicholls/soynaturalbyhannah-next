@@ -18,6 +18,7 @@ module.exports = {
         purple: "#9c27b0",
         "dark-purple": "#6d1b7b",
         pink:"#c2185b",
+        "graybg":"#fafafa",
       },
       height: {
         112: "28rem",

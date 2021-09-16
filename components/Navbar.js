@@ -4,7 +4,7 @@ import Image from "next/image"
 
 const Nav = () => {
   return (
-    <div className="fixed z-10 top-0 w-full px-4 py-5 mx-auto bg-white sm:max-w-xl md:max-w-full md:px-24 lg:px-8 drop-shadow-xl">
+    <div className="fixed z-20 top-0 w-full px-4 py-5 mx-auto bg-white sm:max-w-xl md:max-w-full md:px-24 lg:px-8 drop-shadow-xl">
       <div className="relative flex items-center justify-between">
         <Link href="/" passHref>
           <a

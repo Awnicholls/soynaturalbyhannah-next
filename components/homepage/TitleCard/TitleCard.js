@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    height:"80vh"
   },
   button: {
     margin: theme.spacing(3, 0, 2),
