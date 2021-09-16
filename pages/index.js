@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/styles";
 import Hero from "../components/homepage/Hero";
 import Features from "../components/homepage/Features";
+import Header from "../components/homepage/Header";
 const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   content: {
@@ -14,7 +15,8 @@ export default function Home() {
   return (
     <>
      <div className={classes.toolbar} />
-    <Hero/>
+     <Header/>
+    {/* <Hero/> */}
     <Features/>
 </>
   )

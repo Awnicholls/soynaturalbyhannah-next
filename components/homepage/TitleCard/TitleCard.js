@@ -20,9 +20,9 @@ const TitleCard = () => {
   return (
     <Container component="div" maxWidth="xs">
       <div className={classes.paper}>
-<Image src="/logo.png" width={250} height={250} alt="Soy Natural by Hannah logo"/>
+        <Image src="/logo.png" width={250} height={250} alt="Soy Natural by Hannah logo"/>
         <Typography component="h1" variant="h5">
-          Soy Natural By Hannah
+          SoyNatural By Hannah
         </Typography>
         <Button
           variant="contained"

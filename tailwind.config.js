@@ -1,6 +1,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
+  mode: "jit",
   purge: ["./{components,pages}/**/*.js"],
   theme: {
     extend: {
@@ -27,6 +28,9 @@ module.exports = {
       boxShadow: {
         'thank-you': '-2.63365px 5.92572px 8.55938px rgba(0, 0, 0, 0.25)',
       },
+      zIndex: {
+        '-1': '-1',
+       }
     },
     fontFamily: {
       sans: ["Inter", ...defaultTheme.fontFamily.sans],
